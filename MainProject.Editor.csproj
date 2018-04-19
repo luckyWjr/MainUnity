@@ -285,8 +285,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Editor\Excel\Article.cs" />
-    <Compile Include="Assets\Editor\Excel\ArticleManger.cs" />
     <Compile Include="Assets\Editor\Excel\CreateCSTool.cs" />
     <Compile Include="Assets\Editor\Excel\ExcelBuild.cs" />
     <Compile Include="Assets\Editor\Excel\ExcelConfig.cs" />

@@ -91,7 +91,6 @@ namespace EditorTool {
 
         static object GetCSharpValue(string srcValue, Type type) {
             object target;
-            UnityEngine.Debug.Log(type.ToString());
             switch(type.ToString()) {
                 // ulong
                 case "System.UInt64":
