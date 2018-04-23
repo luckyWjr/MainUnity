@@ -299,6 +299,33 @@
     <Compile Include="Assets\Editor\Excel\ExcelBuild.cs" />
     <Compile Include="Assets\Editor\Excel\ExcelConfig.cs" />
     <Compile Include="Assets\Editor\Excel\ExcelTool.cs" />
+    <Compile Include="Assets\Editor\XLua\XLuaConfig.cs" />
+    <Compile Include="Assets\Thrids\XLua\Src\Editor\Generator.cs" />
+    <Compile Include="Assets\Thrids\XLua\Src\Editor\Hotfix.cs" />
+    <Compile Include="Assets\Thrids\XLua\Src\Editor\LinkXmlGen\LinkXmlGen.cs" />
+    <Compile Include="Assets\Thrids\XLua\Src\Editor\TemplateRef.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Example\XLua\Resources\main.lua.txt" />
+    <None Include="Assets\Example\XLua\Resources\patch1.lua.txt" />
+    <None Include="Assets\Example\XLua\Resources\patchList.lua.txt" />
+    <None Include="Assets\Thrids\XLua\Resources\perf\memory.lua.txt" />
+    <None Include="Assets\Thrids\XLua\Resources\perf\profiler.lua.txt" />
+    <None Include="Assets\Thrids\XLua\Resources\tdr\tdr.lua.txt" />
+    <None Include="Assets\Thrids\XLua\Resources\xlua\util.lua.txt" />
+    <None Include="Assets\Thrids\XLua\Src\Editor\LinkXmlGen\LinkXmlGen.tpl.txt" />
+    <None Include="Assets\Thrids\XLua\Src\Editor\Template\LuaClassWrap.tpl.txt" />
+    <None Include="Assets\Thrids\XLua\Src\Editor\Template\LuaClassWrapGCM.tpl.txt" />
+    <None Include="Assets\Thrids\XLua\Src\Editor\Template\LuaDelegateBridge.tpl.txt" />
+    <None Include="Assets\Thrids\XLua\Src\Editor\Template\LuaDelegateWrap.tpl.txt" />
+    <None Include="Assets\Thrids\XLua\Src\Editor\Template\LuaEnumWrap.tpl.txt" />
+    <None Include="Assets\Thrids\XLua\Src\Editor\Template\LuaEnumWrapGCM.tpl.txt" />
+    <None Include="Assets\Thrids\XLua\Src\Editor\Template\LuaInterfaceBridge.tpl.txt" />
+    <None Include="Assets\Thrids\XLua\Src\Editor\Template\LuaRegister.tpl.txt" />
+    <None Include="Assets\Thrids\XLua\Src\Editor\Template\LuaRegisterGCM.tpl.txt" />
+    <None Include="Assets\Thrids\XLua\Src\Editor\Template\LuaWrapPusher.tpl.txt" />
+    <None Include="Assets\Thrids\XLua\Src\Editor\Template\PackUnpack.tpl.txt" />
+    <None Include="Assets\Thrids\XLua\Src\Editor\Template\TemplateCommon.lua.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
