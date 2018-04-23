@@ -10,7 +10,7 @@ namespace EditorTool {
         /// <summary>
         /// 第一步，生成对应的cs文件
         /// </summary>
-        [MenuItem("CustomEditor/Excel/Create CS")]
+        [MenuItem("Custom/Excel/Create CS")]
         public static void CreateCSByExcel() {
             List<string> list = GetExcelFilesPath();
             if(list != null) {
@@ -21,7 +21,7 @@ namespace EditorTool {
             AssetDatabase.Refresh();
         }
 
-        [MenuItem("CustomEditor/Excel/Clear All CS")]
+        [MenuItem("Custom/Excel/Clear All CS")]
         public static void DeleteCSFiles() {
             if(Directory.Exists(ExcelConfig.dataCSItemPath)) {
                 Directory.Delete(ExcelConfig.dataCSItemPath, true);
@@ -32,12 +32,10 @@ namespace EditorTool {
             AssetDatabase.Refresh();
         }
 
-        
-
         /// <summary>
         /// 第二步，导出数据
         /// </summary>
-        [MenuItem("CustomEditor/Excel/Export Data")]
+        [MenuItem("Custom/Excel/Export Data")]
         public static void ExcuteBuild() {
             if(!Directory.Exists(ExcelConfig.assetPath)) {
                 Directory.CreateDirectory(ExcelConfig.assetPath);
@@ -72,7 +70,7 @@ namespace EditorTool {
             AssetDatabase.Refresh();
         }
 
-        [MenuItem("CustomEditor/Excel/Clear All Asset")]
+        [MenuItem("Custom/Excel/Clear All Asset")]
         public static void DeleteAssetFiles() {
             if(Directory.Exists(ExcelConfig.assetPath)) {
                 Directory.Delete(ExcelConfig.assetPath, true);

@@ -11,4 +11,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79ae11fa24e2e546986d78b995d1625, type: 3}
   m_Name: Item
   m_EditorClassIdentifier: 
-  dataArray: []
+  dataArray:
+  - itemId: 10001
+    itemName: "\u566C\u9B42"
+    itemPrice: 1000
+  - itemId: 10002
+    itemName: "\u4F24\u5FC3\u82B1"
+    itemPrice: 600
+  - itemId: 10003
+    itemName: "\u5929\u740A"
+    itemPrice: 900
+  - itemId: 10004
+    itemName: "\u65A9\u9F99\u5251"
+    itemPrice: 800

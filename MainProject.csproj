@@ -221,7 +221,18 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Data\Item\Item.cs" />
     <Compile Include="Assets\Scripts\Data\Manager\ItemManager.cs" />
-    <Compile Include="Assets\Scripts\ExcelLog.cs" />
+    <Compile Include="Assets\Scripts\Tools\AssetBundle\AssetBundleTool.cs" />
+    <Compile Include="Assets\Scripts\Tools\AssetBundle\Categorys\BaseAssetBundleItem.cs" />
+    <Compile Include="Assets\Scripts\Tools\AssetBundle\Categorys\GroupAssetBundleItem.cs" />
+    <Compile Include="Assets\Scripts\Tools\AssetBundle\Categorys\ImageAssetBundleItem.cs" />
+    <Compile Include="Assets\Scripts\Tools\AssetBundle\Categorys\SpriteAssetBundleItem.cs" />
+    <Compile Include="Assets\Scripts\Tools\AssetBundle\Categorys\UIPrefabAssetBundleItem.cs" />
+    <Compile Include="Assets\Scripts\Tools\FileTool.cs" />
+    <Compile Include="Assets\Scripts\Tools\PathTool.cs" />
+    <Compile Include="Assets\Scripts\Tools\SingleClass.cs" />
+    <Compile Include="Assets\Scripts\Tools\TypeConvertTool.cs" />
+    <Compile Include="Assets\Scripts\Tools\UICoroutine.cs" />
+    <Compile Include="Assets\Scripts\UI\Panel2Controller.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

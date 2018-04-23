@@ -285,6 +285,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Editor\AssetBundle\BuildAssetBundle.cs" />
+    <Compile Include="Assets\Editor\AssetBundle\BuildAssetBundleConfig.cs" />
+    <Compile Include="Assets\Editor\AssetBundle\BuildAssetBundleSetting.cs" />
+    <Compile Include="Assets\Editor\AssetBundle\BuildAssetBundleWindow.cs" />
+    <Compile Include="Assets\Editor\AssetBundle\Categorys\BaseAssetBundle.cs" />
+    <Compile Include="Assets\Editor\AssetBundle\Categorys\GroupAssetBundle.cs" />
+    <Compile Include="Assets\Editor\AssetBundle\Categorys\NormalAssetBundle.cs" />
+    <Compile Include="Assets\Editor\AssetBundle\Managers\BaseAssetBundleManager.cs" />
+    <Compile Include="Assets\Editor\AssetBundle\Managers\GroupAssetBundleManager.cs" />
+    <Compile Include="Assets\Editor\AssetBundle\Managers\NormalBundleAssetManager.cs" />
     <Compile Include="Assets\Editor\Excel\CreateCSTool.cs" />
     <Compile Include="Assets\Editor\Excel\ExcelBuild.cs" />
     <Compile Include="Assets\Editor\Excel\ExcelConfig.cs" />
