@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using XLuaTool;
+using Tool;
 
 namespace Examples {
 

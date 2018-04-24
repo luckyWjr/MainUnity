@@ -66,7 +66,7 @@ namespace EditorTool {
         }
 
         [BlackList]
-        public static List<List<string>> BlackList = new List<List<string>>()  {
+        public static List<List<string>> blackListList = new List<List<string>>()  {
                 new List<string>(){"UnityEngine.WWW", "movie"},
                 new List<string>(){"UnityEngine.GameObject", "networkView"}, //4.6.2 not support
                 new List<string>(){"UnityEngine.Component", "networkView"},  //4.6.2 not support

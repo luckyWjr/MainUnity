@@ -230,11 +230,12 @@
     <Compile Include="Assets\Scripts\Tools\AssetBundle\Categorys\UIPrefabAssetBundleItem.cs" />
     <Compile Include="Assets\Scripts\Tools\FileTool.cs" />
     <Compile Include="Assets\Scripts\Tools\PathTool.cs" />
+    <Compile Include="Assets\Scripts\Tools\Scene\CustomCube.cs" />
     <Compile Include="Assets\Scripts\Tools\SingleClass.cs" />
     <Compile Include="Assets\Scripts\Tools\TypeConvertTool.cs" />
     <Compile Include="Assets\Scripts\Tools\UICoroutine.cs" />
+    <Compile Include="Assets\Scripts\Tools\XLua\XLuaManager.cs" />
     <Compile Include="Assets\Scripts\UI\Panel2Controller.cs" />
-    <Compile Include="Assets\Scripts\XLua\XLuaManager.cs" />
     <Compile Include="Assets\Thrids\XLua\Src\CodeEmit.cs" />
     <Compile Include="Assets\Thrids\XLua\Src\CopyByValue.cs" />
     <Compile Include="Assets\Thrids\XLua\Src\DelegateBridge.cs" />

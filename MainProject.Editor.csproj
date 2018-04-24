@@ -299,6 +299,8 @@
     <Compile Include="Assets\Editor\Excel\ExcelBuild.cs" />
     <Compile Include="Assets\Editor\Excel\ExcelConfig.cs" />
     <Compile Include="Assets\Editor\Excel\ExcelTool.cs" />
+    <Compile Include="Assets\Editor\Scene\CustomCubeEditor.cs" />
+    <Compile Include="Assets\Editor\Scene\SceneEditor.cs" />
     <Compile Include="Assets\Editor\XLua\XLuaConfig.cs" />
     <Compile Include="Assets\Thrids\XLua\Src\Editor\Generator.cs" />
     <Compile Include="Assets\Thrids\XLua\Src\Editor\Hotfix.cs" />

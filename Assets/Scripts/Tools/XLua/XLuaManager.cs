@@ -1,6 +1,6 @@
 ﻿using XLua;
 
-namespace XLuaTool {
+namespace Tool {
 
 	public class XLuaManager {
 
