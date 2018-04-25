@@ -14,6 +14,7 @@ namespace UI {
 
         UIPrefabAssetBundleItem m_panel3Asset;
         ImageAssetBundleItem m_imageAsset;
+        PrefabAssetBundleItem m_cubeAsset;
 
         void Start () {
             m_unloadFalseBtn.onClick.AddListener(UnloadAssetBundleFalse);
@@ -29,6 +30,12 @@ namespace UI {
             m_imageAsset = new ImageAssetBundleItem(ImageAssetBundleItem.backgroundFolder, "BG1");
             m_imageAsset.Load();
             m_rawImage.texture = m_imageAsset.texture;
+
+            m_cubeAsset = new PrefabAssetBundleItem("", "Cube");
+            m_cubeAsset.Load();
+            GameObject cube = Instantiate(m_cubeAsset.prefab);
+            cube.transform.localPosition = Vector3.one;
+            cube.transform.localScale = Vector3.one;
 
         }
 

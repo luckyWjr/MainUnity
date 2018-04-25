@@ -22,6 +22,9 @@ namespace EditorTool {
             yield return new NormalAssetBundleManager<Texture>("Assets/Res/Images", "t:Texture2D", "Images");
             yield return new GroupAssetBundleManager<Sprite>("Assets/Res/Sprites", "t:Sprite", "Sprites");
             yield return new NormalAssetBundleManager<UnityEngine.Object>("Assets/Res/UIPrefabs", "t:Prefab", "UIPrefabs");
+            yield return new NormalAssetBundleManager<UnityEngine.Object>("Assets/Res/Prefabs", "t:Prefab", "Prefabs");
+            yield return new NormalAssetBundleManager<Material>("Assets/Res/Materials", "t:Material", "Materials");
+            yield return new NormalAssetBundleManager<Shader>("Assets/Res/Shaders", "t:Shader", "Shaders");
         }
 
         public static string finalLoadingVersionName {

@@ -226,6 +226,7 @@
     <Compile Include="Assets\Scripts\Tools\AssetBundle\Categorys\BaseAssetBundleItem.cs" />
     <Compile Include="Assets\Scripts\Tools\AssetBundle\Categorys\GroupAssetBundleItem.cs" />
     <Compile Include="Assets\Scripts\Tools\AssetBundle\Categorys\ImageAssetBundleItem.cs" />
+    <Compile Include="Assets\Scripts\Tools\AssetBundle\Categorys\PrefabAssetBundleItem.cs" />
     <Compile Include="Assets\Scripts\Tools\AssetBundle\Categorys\SpriteAssetBundleItem.cs" />
     <Compile Include="Assets\Scripts\Tools\AssetBundle\Categorys\UIPrefabAssetBundleItem.cs" />
     <Compile Include="Assets\Scripts\Tools\FileTool.cs" />
@@ -263,6 +264,8 @@
     <None Include="Assets\Example\XLua\Resources\main.lua.txt" />
     <None Include="Assets\Example\XLua\Resources\patch1.lua.txt" />
     <None Include="Assets\Example\XLua\Resources\patchList.lua.txt" />
+    <None Include="Assets\Res\Shaders\ToonLit.shader" />
+    <None Include="Assets\Res\Shaders\ToonLit2.shader" />
     <None Include="Assets\Thrids\XLua\Resources\perf\memory.lua.txt" />
     <None Include="Assets\Thrids\XLua\Resources\perf\profiler.lua.txt" />
     <None Include="Assets\Thrids\XLua\Resources\tdr\tdr.lua.txt" />

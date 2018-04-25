@@ -4,16 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Tool {
-    /// <summary>
-    /// 存储UI界面资源信息
-    /// </summary>
-	public class UIPrefabAssetBundleItem : BaseAssetBundleItem {
 
-        const string uiAssetFolder = @"UIPrefabs/";
+	public class PrefabAssetBundleItem : BaseAssetBundleItem {
+
+        const string prefabAssetFolder = @"Prefabs/";
         //public const string iconFolder = @"Icon/";
 
-        public UIPrefabAssetBundleItem(string folder, string name) {
-            assetCategoryPath = uiAssetFolder;
+        public PrefabAssetBundleItem(string folder, string name) {
+            assetCategoryPath = prefabAssetFolder;
             this.folder = folder;
             this.name = name;
             m_fullPath = string.Format("{0}{1}{2}.u", assetCategoryPath, folder, name);
