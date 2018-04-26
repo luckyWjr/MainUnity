@@ -56,7 +56,7 @@ namespace EditorTool {
             get {
                 string[] allowNamespaces = new string[] {
                     "Tool",
-                    "XLuaTool",
+                    "Examples",
                 };
 
                 return (from type in Assembly.Load("Assembly-CSharp").GetTypes()

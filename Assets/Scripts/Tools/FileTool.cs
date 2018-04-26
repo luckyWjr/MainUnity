@@ -39,5 +39,20 @@ namespace Tool {
                 CopyFile(files[i], targetFile);
             }
         }
+
+        /// <summary>
+        /// 创建文件
+        /// </summary>
+        /// <param name="filePath">文件路径</param>
+        /// <param name="bytes">文件内容</param>
+        public static void CreatFile(string filePath, byte[] bytes) {
+            FileInfo file = new FileInfo(filePath);
+            Stream stream = file.Create();
+
+            stream.Write(bytes, 0, bytes.Length);
+
+            stream.Close();
+            stream.Dispose();
+        }
     }
 }

@@ -2,8 +2,25 @@
 
 print("exe-----------patch1");
 
-xlua.private_accessible(CS.MyExamples.Hotfix);  
+xlua.private_accessible(CS.Examples.Hotfix);  
 
-xlua.hotfix(CS.MyExamples.Hotfix, "Show", function(self)  
+
+
+--[[
+xlua.hotfix(CS.Examples.Hotfix, "Show", function(self)  
     print("lua---Show");
+end)
+]]
+
+local util = require "xlua.util";
+util.hotfix_ex(CS.Examples.Hotfix, "Show", function(self)
+	self:Show();--调用原方法
+
+    print("lua---Show");
+
+	local fu = self:GetFu();
+	print("fulei----"..fu.a);
+	print("zilei----"..fu.x);
+	cast(fu, typeof(CS.Examples.Zi));
+	print("zilei----"..fu.x);
 end)
