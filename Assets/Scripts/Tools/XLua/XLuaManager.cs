@@ -25,5 +25,17 @@ namespace Tool {
         public void Start() {
             m_luaEnv.DoString("require 'main'");
         }
+
+        public void Dispose() {
+            if(m_luaEnv != null) {
+                m_luaEnv.Dispose();
+            }
+        }
+
+        public void Tick() {
+            if(m_luaEnv != null) {
+                m_luaEnv.Tick();
+            }
+        }
     }
 }

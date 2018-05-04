@@ -219,7 +219,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Example\AssetBundle\Panel2Controller.cs" />
     <Compile Include="Assets\Example\Download\DownloadDemo.cs" />
+    <Compile Include="Assets\Example\GameObjectPool\GameObjectPoolDemo.cs" />
     <Compile Include="Assets\Example\XLua\Hotfix.cs" />
     <Compile Include="Assets\Scripts\Data\Item\Item.cs" />
     <Compile Include="Assets\Scripts\Data\Manager\ItemManager.cs" />
@@ -230,15 +232,19 @@
     <Compile Include="Assets\Scripts\Tools\AssetBundle\Categorys\PrefabAssetBundleItem.cs" />
     <Compile Include="Assets\Scripts\Tools\AssetBundle\Categorys\SpriteAssetBundleItem.cs" />
     <Compile Include="Assets\Scripts\Tools\AssetBundle\Categorys\UIPrefabAssetBundleItem.cs" />
+    <Compile Include="Assets\Scripts\Tools\Bridge\UnityCallAndroid.cs" />
     <Compile Include="Assets\Scripts\Tools\DownloadTool.cs" />
     <Compile Include="Assets\Scripts\Tools\FileTool.cs" />
+    <Compile Include="Assets\Scripts\Tools\GameObjectPool\Categorys\BaseGameObjectPool.cs" />
+    <Compile Include="Assets\Scripts\Tools\GameObjectPool\Categorys\CubePool.cs" />
+    <Compile Include="Assets\Scripts\Tools\GameObjectPool\GameObjectPoolInfo.cs" />
+    <Compile Include="Assets\Scripts\Tools\GameObjectPool\GameObjectPoolManager.cs" />
     <Compile Include="Assets\Scripts\Tools\PathTool.cs" />
     <Compile Include="Assets\Scripts\Tools\Scene\CustomCube.cs" />
     <Compile Include="Assets\Scripts\Tools\SingleClass.cs" />
     <Compile Include="Assets\Scripts\Tools\TypeConvertTool.cs" />
     <Compile Include="Assets\Scripts\Tools\UICoroutine.cs" />
     <Compile Include="Assets\Scripts\Tools\XLua\XLuaManager.cs" />
-    <Compile Include="Assets\Scripts\UI\Panel2Controller.cs" />
     <Compile Include="Assets\Thrids\XLua\Src\CodeEmit.cs" />
     <Compile Include="Assets\Thrids\XLua\Src\CopyByValue.cs" />
     <Compile Include="Assets\Thrids\XLua\Src\DelegateBridge.cs" />
