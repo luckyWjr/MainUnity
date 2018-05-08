@@ -80,5 +80,13 @@ namespace EditorTool {
                 new List<string>(){"System.IO.DirectoryInfo", "Create", "System.Security.AccessControl.DirectorySecurity"},
                 new List<string>(){"UnityEngine.MonoBehaviour", "runInEditMode"},
             };
+
+        [CSObjectWrapEditor.GenPath]
+        public static string genPath = "Assets/Scripts/Tools/XLua/Gen/";
+
+        [CSObjectWrapEditor.GenCodeMenu]
+        public static void XLuaGenerateCodeFinish() {
+            Debug.Log("XLuaGenerateCodeFinish");
+        }
     }
 }

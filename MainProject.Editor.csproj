@@ -314,6 +314,7 @@
     <None Include="Assets\Example\XLua\Resources\patchList.lua.txt" />
     <None Include="Assets\Res\Shaders\ToonLit.shader" />
     <None Include="Assets\Res\Shaders\ToonLit2.shader" />
+    <None Include="Assets\Scripts\Tools\XLua\Gen\link.xml" />
     <None Include="Assets\Thrids\XLua\Resources\perf\memory.lua.txt" />
     <None Include="Assets\Thrids\XLua\Resources\perf\profiler.lua.txt" />
     <None Include="Assets\Thrids\XLua\Resources\tdr\tdr.lua.txt" />
@@ -331,7 +332,6 @@
     <None Include="Assets\Thrids\XLua\Src\Editor\Template\LuaWrapPusher.tpl.txt" />
     <None Include="Assets\Thrids\XLua\Src\Editor\Template\PackUnpack.tpl.txt" />
     <None Include="Assets\Thrids\XLua\Src\Editor\Template\TemplateCommon.lua.txt" />
-    <None Include="Assets\XLua\Gen\link.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
