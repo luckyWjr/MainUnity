@@ -308,6 +308,7 @@
     <Compile Include="Assets\Thrids\XLua\Src\Editor\TemplateRef.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Example\XLua\Resources\foreach.lua.txt" />
     <None Include="Assets\Example\XLua\Resources\main.lua.txt" />
     <None Include="Assets\Example\XLua\Resources\patch1.lua.txt" />
     <None Include="Assets\Example\XLua\Resources\patchList.lua.txt" />
@@ -330,7 +331,6 @@
     <None Include="Assets\Thrids\XLua\Src\Editor\Template\LuaWrapPusher.tpl.txt" />
     <None Include="Assets\Thrids\XLua\Src\Editor\Template\PackUnpack.tpl.txt" />
     <None Include="Assets\Thrids\XLua\Src\Editor\Template\TemplateCommon.lua.txt" />
-    <None Include="Assets\XLua\Gen\Resources\hotfix_id_map.lua.txt" />
     <None Include="Assets\XLua\Gen\link.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

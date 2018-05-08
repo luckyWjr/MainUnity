@@ -245,6 +245,7 @@
     <Compile Include="Assets\Scripts\Tools\TypeConvertTool.cs" />
     <Compile Include="Assets\Scripts\Tools\UICoroutine.cs" />
     <Compile Include="Assets\Scripts\Tools\XLua\XLuaManager.cs" />
+    <Compile Include="Assets\Thrids\SimpleJSON.cs" />
     <Compile Include="Assets\Thrids\XLua\Src\CodeEmit.cs" />
     <Compile Include="Assets\Thrids\XLua\Src\CopyByValue.cs" />
     <Compile Include="Assets\Thrids\XLua\Src\DelegateBridge.cs" />
@@ -270,6 +271,7 @@
     <Compile Include="Assets\XLua\Gen\DelegatesGensBridge.cs" />
     <Compile Include="Assets\XLua\Gen\EnumWrap.cs" />
     <Compile Include="Assets\XLua\Gen\PackUnpack.cs" />
+    <Compile Include="Assets\XLua\Gen\SimpleJSONJSONObjectWrap.cs" />
     <Compile Include="Assets\XLua\Gen\SystemCollectionsGenericList1SystemInt32Wrap.cs" />
     <Compile Include="Assets\XLua\Gen\SystemCollectionsIEnumeratorBridge.cs" />
     <Compile Include="Assets\XLua\Gen\SystemObjectWrap.cs" />
@@ -302,6 +304,7 @@
     <Compile Include="Assets\XLua\Gen\XLuaGenAutoRegister.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Example\XLua\Resources\foreach.lua.txt" />
     <None Include="Assets\Example\XLua\Resources\main.lua.txt" />
     <None Include="Assets\Example\XLua\Resources\patch1.lua.txt" />
     <None Include="Assets\Example\XLua\Resources\patchList.lua.txt" />
@@ -324,7 +327,6 @@
     <None Include="Assets\Thrids\XLua\Src\Editor\Template\LuaWrapPusher.tpl.txt" />
     <None Include="Assets\Thrids\XLua\Src\Editor\Template\PackUnpack.tpl.txt" />
     <None Include="Assets\Thrids\XLua\Src\Editor\Template\TemplateCommon.lua.txt" />
-    <None Include="Assets\XLua\Gen\Resources\hotfix_id_map.lua.txt" />
     <None Include="Assets\XLua\Gen\link.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

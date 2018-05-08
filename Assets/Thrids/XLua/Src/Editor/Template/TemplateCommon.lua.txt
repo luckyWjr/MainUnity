@@ -315,6 +315,9 @@ end
 
 local paramsAttriType = typeof(CS.System.ParamArrayAttribute)
 function IsParams(pi)
+    if (not pi.IsDefined) then
+        return pi.IsParamArray
+    end
     return pi:IsDefined(paramsAttriType, false)
 end
 
@@ -328,16 +331,18 @@ function GetSelfStatement(t)
     local fulltypename = CsFullTypeName(t)
     local is_struct = IsStruct(t)
     if is_struct then
-	    return fulltypename .. " __cl_gen_to_be_invoked;translator.Get(L, 1, out __cl_gen_to_be_invoked)"
+	    return fulltypename .. " gen_to_be_invoked;translator.Get(L, 1, out gen_to_be_invoked)"
 	else
 	    if t == objectType then
-            return "object __cl_gen_to_be_invoked = translator.FastGetCSObj(L, 1)"
+            return "object gen_to_be_invoked = translator.FastGetCSObj(L, 1)"
         else
-            return fulltypename .. " __cl_gen_to_be_invoked = (" .. fulltypename .. ")translator.FastGetCSObj(L, 1)"
+            return fulltypename .. " gen_to_be_invoked = (" .. fulltypename .. ")translator.FastGetCSObj(L, 1)"
         end
 	end
     
 end
+
+local GetNullableUnderlyingType = CS.System.Nullable.GetUnderlyingType
 
 function GetPushStatement(t, variable, is_v_params)
     if is_v_params then
@@ -352,7 +357,7 @@ function GetPushStatement(t, variable, is_v_params)
         return "translator.Push".. CSVariableName(t) .."(L, "..variable..")"
     elseif t.IsGenericParameter and not t.DeclaringMethod then
 	    return "translator.PushByType(L, "..variable..")"
-	elseif t.IsInterface then
+	elseif t.IsInterface or GetNullableUnderlyingType(t) then
 	    return "translator.PushAny(L, "..variable..")"
     else
         return "translator.Push(L, "..variable..")"
@@ -378,7 +383,9 @@ function CallNeedTranslator(overload, isdelegate)
 	local ret_type_name = getSafeFullName(overload.ReturnType)
     if not notranslator[ret_type_name] then return true end 
     local parameters = overload:GetParameters()
-    return IfAny(overload:GetParameters(), function(parameter) return not notranslator[getSafeFullName(parameter.ParameterType)] end)
+    return IfAny(overload:GetParameters(), function(parameter) 
+        return IsParams(parameter) or (not notranslator[getSafeFullName(parameter.ParameterType)])
+    end)
 end
 
 function MethodCallNeedTranslator(method)
@@ -433,4 +440,8 @@ function GenericArgumentList(type)
         end
     end
     return generic_arg_list, type_constraints
+end
+
+function LocalName(name)
+    return "_" .. name
 end

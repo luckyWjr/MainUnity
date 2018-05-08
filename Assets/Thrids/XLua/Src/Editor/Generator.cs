@@ -155,6 +155,12 @@ namespace CSObjectWrapEditor
             });
         }
 
+        static bool IsOverride(MethodBase method)
+        {
+            var m = method as MethodInfo;
+            return m != null && !m.IsConstructor && m.IsVirtual && (m.GetBaseDefinition().DeclaringType != m.DeclaringType);
+        }
+
         static int OverloadCosting(MethodBase mi)
         {
             int costing = 0;
@@ -283,20 +289,6 @@ namespace CSObjectWrapEditor
             parameters.Set("constructors", constructors);
             parameters.Set("constructor_def_vals", constructor_def_vals);
 
-            var getters = type.GetProperties().Where(prop => prop.CanRead);
-            var setters = type.GetProperties().Where(prop => prop.CanWrite);
-
-            var methodNames = type.GetMethods(BindingFlags.Public | BindingFlags.Instance
-                | BindingFlags.Static | BindingFlags.IgnoreCase | BindingFlags.DeclaredOnly).Select(t=>t.Name).Distinct().ToDictionary(t=>t);
-            foreach (var getter in getters)
-            {
-                methodNames.Remove("get_" + getter.Name);
-            }
-
-            foreach (var setter in setters)
-            {
-                methodNames.Remove("set_" + setter.Name);
-            }
             List<string> extension_methods_namespace = new List<string>();
             var extension_methods = type.IsInterface ? new MethodInfo[0]:GetExtensionMethods(type).ToArray();
             foreach(var extension_method in extension_methods)
@@ -310,22 +302,35 @@ namespace CSObjectWrapEditor
             }
             parameters.Set("namespaces", extension_methods_namespace.Distinct().ToList());
 
+            List<LazyMemberInfo> lazyMemberInfos = new List<LazyMemberInfo>();
+
             //warnning: filter all method start with "op_"  "add_" "remove_" may  filter some ordinary method
             parameters.Set("methods", type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.IgnoreCase | BindingFlags.DeclaredOnly)
                 .Where(method => !method.IsDefined(typeof (ExtensionAttribute), false) || method.GetParameters()[0].ParameterType.IsInterface || method.DeclaringType != type)
-                .Where(method => methodNames.ContainsKey(method.Name)) //GenericMethod can not be invoke becuase not static info available!
+                .Where(method => !method.IsSpecialName 
+                    || (
+                         ((method.Name == "get_Item" && method.GetParameters().Length == 1) || (method.Name == "set_Item" && method.GetParameters().Length == 2)) 
+                         && method.GetParameters()[0].ParameterType.IsAssignableFrom(typeof(string))
+                       )
+                 ) 
                 .Concat(extension_methods)
                 .Where(method => !IsDoNotGen(type, method.Name))
-                .Where(method => !isMethodInBlackList(method) && (!method.IsGenericMethod || extension_methods.Contains(method) || isSupportedGenericMethod(method)) && !isObsolete(method) && !method.Name.StartsWith("op_") && !method.Name.StartsWith("add_") && !method.Name.StartsWith("remove_"))
+                .Where(method => !isMethodInBlackList(method) && (!method.IsGenericMethod || extension_methods.Contains(method) || isSupportedGenericMethod(method)) && !isObsolete(method))
                 .GroupBy(method => (method.Name + ((method.IsStatic && (!method.IsDefined(typeof (ExtensionAttribute), false) || method.GetParameters()[0].ParameterType.IsInterface)) ? "_xlua_st_" : "")), (k, v) =>
                 {
                     var overloads = new List<MethodBase>();
                     List<int> def_vals = new List<int>();
+                    bool isOverride = false;
                     foreach (var overload in v.Cast<MethodBase>().OrderBy(mb => OverloadCosting(mb)))
                     {
                         int def_count = 0;
                         overloads.Add(overload);
                         def_vals.Add(def_count);
+
+                        if (!isOverride)
+                        {
+                            isOverride = IsOverride(overload);
+                        }
 
                         var ps = overload.GetParameters();
                         for (int i = ps.Length - 1; i >=0; i--)
@@ -343,6 +348,7 @@ namespace CSObjectWrapEditor
                             }
                         }
                     }
+
                     return new {
                         Name = k,
                         IsStatic = overloads[0].IsStatic && (!overloads[0].IsDefined(typeof(ExtensionAttribute), false) || overloads[0].GetParameters()[0].ParameterType.IsInterface),
@@ -386,7 +392,7 @@ namespace CSObjectWrapEditor
                 .Select(ev => new { IsStatic = ev.GetAddMethod() != null? ev.GetAddMethod().IsStatic: ev.GetRemoveMethod().IsStatic, ev.Name,
                     CanSet = false, CanAdd = ev.GetRemoveMethod() != null, CanRemove = ev.GetRemoveMethod() != null, Type = ev.EventHandlerType})
                 .ToList());
-            List<LazyMemberInfo> lazyMemberInfos = new List<LazyMemberInfo>();
+            
             parameters.Set("lazymembers", lazyMemberInfos);
             foreach (var member in type.GetMembers(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.IgnoreCase | BindingFlags.DeclaredOnly)
                 .Where(m => IsDoNotGen(type, m.Name))
@@ -737,40 +743,22 @@ namespace CSObjectWrapEditor
 
         static MethodInfoSimulation makeHotfixMethodInfoSimulation(MethodBase hotfixMethod, HotfixFlag hotfixType)
         {
-            bool isStateful = hotfixType.HasFlag(HotfixFlag.Stateful);
             bool ignoreValueType = hotfixType.HasFlag(HotfixFlag.ValueTypeBoxing);
-            //isStateful = false;
             //ignoreValueType = true;
 
-            Type retTypeExpect = (isStateful && hotfixMethod.IsConstructor && !hotfixMethod.IsStatic)
-                    ? typeof(LuaTable) : (hotfixMethod.IsConstructor ? typeof(void) : (hotfixMethod as MethodInfo).ReturnType);
+            Type retTypeExpect = (hotfixMethod.IsConstructor ? typeof(void) : (hotfixMethod as MethodInfo).ReturnType);
             int hashCode = retTypeExpect.GetHashCode();
             List<ParameterInfoSimulation> paramsExpect = new List<ParameterInfoSimulation>();
             if (!hotfixMethod.IsStatic) // add self
             {
-                if (isStateful && !hotfixMethod.IsConstructor)
+                paramsExpect.Add(new ParameterInfoSimulation()
                 {
-                    paramsExpect.Add(new ParameterInfoSimulation()
-                    {
-                        Name = "self",
-                        IsOut = false,
-                        IsIn = true,
-                        ParameterType = typeof(LuaTable),
-                        IsParamArray = false
-                    });
-    
-                }
-                else
-                {
-                    paramsExpect.Add(new ParameterInfoSimulation()
-                    {
-                        Name = "self",
-                        IsOut = false,
-                        IsIn = true,
-                        ParameterType = (hotfixMethod.DeclaringType.IsValueType && !ignoreValueType) ? hotfixMethod.DeclaringType : typeof(object),
-                        IsParamArray = false
-                    });
-                }
+                    Name = "self",
+                    IsOut = false,
+                    IsIn = true,
+                    ParameterType = (hotfixMethod.DeclaringType.IsValueType && !ignoreValueType) ? hotfixMethod.DeclaringType : typeof(object),
+                    IsParamArray = false
+                });
                 hashCode += paramsExpect[0].ParameterType.GetHashCode();
             }
 
@@ -839,14 +827,12 @@ namespace CSObjectWrapEditor
 
         static bool injectByGeneric(MethodBase method, HotfixFlag hotfixType)
         {
-            bool isStateful = hotfixType.HasFlag(HotfixFlag.Stateful);
             bool ignoreValueType = hotfixType.HasFlag(HotfixFlag.ValueTypeBoxing);
-            //isStateful = false;
             //ignoreValueType = true;
 
             if (!method.IsConstructor && (isNotPublic((method as MethodInfo).ReturnType) || hasGenericParameter((method as MethodInfo).ReturnType))) return true;
 
-            if (!method.IsStatic &&  (!isStateful || method.IsConstructor)
+            if (!method.IsStatic 
                 &&(((method.DeclaringType.IsValueType && !ignoreValueType) && isNotPublic(method.DeclaringType)) || hasGenericParameter(method.DeclaringType)))
             {
                 return true;
@@ -1248,6 +1234,8 @@ namespace CSObjectWrapEditor
 
         public static Dictionary<Type, HashSet<string>> DoNotGen = null;
 
+        public static List<string> assemblyList = null;
+
         static void AddToList(List<Type> list, Func<object> get, object attr)
         {
             object obj = get();
@@ -1317,7 +1305,7 @@ namespace CSObjectWrapEditor
                             && !type.IsEnum && !typeof(Delegate).IsAssignableFrom(type)
                             && (!type.IsGenericType || type.IsGenericTypeDefinition) 
                             && (type.Namespace == null || (type.Namespace != "XLua" && !type.Namespace.StartsWith("XLua.")))
-                            && (type.Module.Assembly.GetName().Name == "Assembly-CSharp"))
+                            && (assemblyList.Contains(type.Module.Assembly.GetName().Name)))
                         {
                             HotfixCfg.Add(type, hotfixType);
                         }
@@ -1382,6 +1370,11 @@ namespace CSObjectWrapEditor
 
             DoNotGen = new Dictionary<Type, HashSet<string>>();
 
+#if UNITY_EDITOR && HOTFIX_ENABLE
+            assemblyList = HotfixConfig.GetHotfixAssembly().Select(a => a.GetName().Name).ToList();
+#else
+            assemblyList = new List<string>();
+#endif
             foreach (var t in check_types)
             {
                 MergeCfg(t, null, () => t);

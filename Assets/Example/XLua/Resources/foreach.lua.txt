@@ -1,0 +1,82 @@
+-- 遍历的测试
+
+--获取对应的List
+local fu = CS.Examples.Fu();
+local list = fu:GetList();
+local slist = fu:GetSList();
+local dic = fu:GetDic();
+
+--遍历
+for k,v in pairs(list) do
+	print('List<int>---'..k..'--'..v);
+end
+
+print('============================');
+for k,v in pairs(slist) do
+	print('List<string>---'..k..'--'..v);
+end
+
+print('============================');
+for k,v in pairs(dic) do
+	print('Dictionary<int, string>---'..k..'--'..v);
+end
+
+local table1 = {
+	5,6,8,4
+}
+
+for k,v in pairs(table1) do
+	print(k..'-'..v);
+end
+--打印结果为：1-5	2-6		3-8		4-4
+
+
+print('============================');
+for k,v in ipairs(table1) do
+	print(k..'-'..v);
+end
+--打印结果为：1-5	2-6		3-8		4-4
+
+
+
+
+
+local table2 = {
+	[1]=5,[3]=6,[4]=8,[5]=4
+}
+
+
+print('============================');
+for k,v in pairs(table2) do
+	print(k..'-'..v);
+end
+--打印结果为：4-8	1-5		5-4		3-6(乱序)
+
+
+print('============================');
+for k,v in ipairs(table2) do
+	print(k..'-'..v);
+end
+--打印结果为：1-5（因为当读取下标2的值时为nil，中断循环）
+
+
+
+
+
+local table3 = {
+	['a']=5,['b']=6,['c']=8,['d']=4
+}
+
+
+print('============================');
+for k,v in pairs(table3) do
+	print(k..'-'..v);
+end
+--打印结果为：b-6	c-8		d-4		a-5(乱序)
+
+
+print('============================');
+for k,v in ipairs(table3) do
+	print(k..'-'..v);
+end
+--打印结果为：无打印（因为当读取下标1的值时为nil，中断循环）

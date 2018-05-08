@@ -36,9 +36,10 @@ namespace EditorTool {
                 typeof(SkinnedMeshRenderer),
                 typeof(Renderer),
                 typeof(WWW),
-                typeof(System.Collections.Generic.List<int>),
+                typeof(List<int>),
                 typeof(Action<string>),
-                typeof(UnityEngine.Debug)
+                typeof(Debug),
+                typeof(SimpleJSON.JSONObject)
             };
 
         [CSharpCallLua]
@@ -47,6 +48,7 @@ namespace EditorTool {
                 typeof(Func<double, double, double>),
                 typeof(Action<string>),
                 typeof(Action<double>),
+                typeof(Action<SimpleJSON.JSONObject>),
                 typeof(UnityEngine.Events.UnityAction),
                 typeof(System.Collections.IEnumerator)
             };
