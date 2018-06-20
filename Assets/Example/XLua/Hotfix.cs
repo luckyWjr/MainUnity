@@ -61,7 +61,7 @@ namespace Examples {
 
         public void Js(Action<SimpleJSON.JSONObject> a) {
             Debug.Log("111111");
-            SimpleJSON.JSONObject jSONObject = new JSONObject();
+            SimpleJSON.JSONObject jSONObject = new SimpleJSON.JSONObject();
             a(jSONObject);
         }
     }

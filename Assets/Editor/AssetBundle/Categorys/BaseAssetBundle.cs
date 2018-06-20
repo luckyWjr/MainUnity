@@ -112,8 +112,15 @@ namespace EditorTool {
 
         public static void ParseConfigLine(string configLine, out string relativePath, out string hash) {
             string[] words = configLine.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-            relativePath = words[0];
-            hash = words[1];
+            int length = words.Length;
+            relativePath = "";
+            hash = "";
+            if(length > 0) {
+                relativePath = words[0];
+            }
+            if(length > 1) {
+                hash = words[1];
+            }
         }
 
         /// <summary>
