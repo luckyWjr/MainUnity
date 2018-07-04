@@ -1,5 +1,4 @@
-﻿
-namespace Tool {
+﻿namespace Tool {
     public abstract class SingleClass<T> where T : new() {
         private static T m_instance;
         public static T instance {

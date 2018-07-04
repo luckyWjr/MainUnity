@@ -18,7 +18,10 @@ namespace Examples {
             //m_item = new WWWDownloadItem(testScrUrl, Application.persistentDataPath);
             //m_item.StartDownload(DownloadFinish);
 
-            m_item = new HttpDownloadItem(testScrUrl, Application.persistentDataPath);
+            //m_item = new HttpDownloadItem(testScrUrl, Application.persistentDataPath);
+            //m_item.StartDownload(DownloadFinish);
+
+            m_item = new WebRequestDownloadItem(testScrUrl, Application.persistentDataPath);
             m_item.StartDownload(DownloadFinish);
         }
 

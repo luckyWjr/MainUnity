@@ -3,6 +3,7 @@ using UnityEngine;
 using System;
 using System.Net;
 using System.IO;
+using UnityEngine.Networking;
 
 namespace Tool {
 
@@ -86,6 +87,7 @@ namespace Tool {
         public abstract long GetLength();
 
         public abstract void Destroy();
+
     }
 
     /// <summary>
@@ -110,7 +112,6 @@ namespace Tool {
             yield return m_www;
             //WWW读取完成后，才开始往下执行
             m_isStartDownload = false;
-
             if(m_www.isDone) {
                 byte[] bytes = m_www.bytes;
                 //创建文件
@@ -243,6 +244,68 @@ namespace Tool {
         }
 
         public override void Destroy() {
+        }
+    }
+
+    /// <summary>
+    /// UnityWebRequest的方式下载
+    /// </summary>
+    public class WebRequestDownloadItem : DownloadItem {
+
+        UnityWebRequest m_webRequest;
+
+        public WebRequestDownloadItem(string url, string path) : base(url, path) {
+
+        }
+
+        public override void StartDownload(Action callback = null) {
+            base.StartDownload();
+            UICoroutine.instance.StartCoroutine(Download(callback));
+        }
+
+        IEnumerator Download(Action callback = null) {
+            m_webRequest = UnityWebRequest.Get(m_srcUrl);
+            m_isStartDownload = true;
+            m_webRequest.timeout = 30;//设置超时，若m_webRequest.SendWebRequest()连接超时会返回，且isNetworkError为true
+            yield return m_webRequest.SendWebRequest();
+            m_isStartDownload = false;
+
+            if(m_webRequest.isNetworkError) {
+                Debug.Log("Download Error:" + m_webRequest.error);
+            } else {
+                byte[] bytes = m_webRequest.downloadHandler.data;
+                //创建文件
+                FileTool.CreatFile(m_saveFilePath, bytes);
+            }
+
+            if(callback != null) {
+                callback();
+            }
+        }
+
+        public override float GetProcess() {
+            if(m_webRequest != null) {
+                return m_webRequest.downloadProgress;
+            }
+            return 0;
+        }
+
+        public override long GetCurrentLength() {
+            if(m_webRequest != null) {
+                return (long)m_webRequest.downloadedBytes;
+            }
+            return 0;
+        }
+
+        public override long GetLength() {
+            return 0;
+        }
+
+        public override void Destroy() {
+            if(m_webRequest != null) {
+                m_webRequest.Dispose();
+                m_webRequest = null;
+            }
         }
     }
 }
