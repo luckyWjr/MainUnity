@@ -8,7 +8,13 @@ namespace Tool {
         MemoryStream m_stream = null;
         BinaryWriter m_writer = null;
 
+        int m_finishLength;
+        public int finishLength {
+            get { return m_finishLength; }
+        }
+
         public NetBufferWriter() {
+            m_finishLength = 0;
             m_stream = new MemoryStream();
             m_writer = new BinaryWriter(m_stream);
         }
@@ -87,7 +93,9 @@ namespace Tool {
             writer.Write((ushort)message.Length);
             writer.Write(message);
             writer.Flush();
-            return ms.ToArray();
+            byte[] result = ms.ToArray();
+            m_finishLength = result.Length;
+            return result;
         }
     }
 }

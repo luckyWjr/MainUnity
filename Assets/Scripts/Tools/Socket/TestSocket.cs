@@ -19,23 +19,23 @@ namespace Examples {
             m_sendBtn.onClick.AddListener(SocketSendMessage);
             m_disconnectBtn.onClick.AddListener(SocketDisconnect);
 
-            ClientSocket.instance.onGetReceive = ShowReceiveMessage;
+            UdpManager.instance.onGetReceive = ShowReceiveMessage;
         }
 		
 		void SocketConnect() {
-            ClientSocket.instance.ConnectServer("127.0.0.1", 8078);
+            UdpManager.instance.Connect(SocketDefine.ip, SocketDefine.port);
         }
 
         void SocketSendMessage() {
             string content = m_input.text;
             if(!string.IsNullOrEmpty(content)) {
-                ClientSocket.instance.SendMessage(content);
+                UdpManager.instance.SendMessage(content);
             }
         }
 
         void SocketDisconnect() {
-            ClientSocket.instance.Disconnect();
             m_receiveMessage = "已断开连接";
+            UdpManager.instance.Disconnect();
         }
 
         void ShowReceiveMessage(string message) {
@@ -44,6 +44,10 @@ namespace Examples {
 
         void Update() {
             m_receiveText.text = m_receiveMessage;
+        }
+
+        void OnApplicationQuit() {
+            UdpManager.instance.Disconnect();
         }
     }
 }

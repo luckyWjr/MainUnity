@@ -2,15 +2,17 @@
 
 print("exe-----------patch1");
 
-xlua.private_accessible(CS.Examples.Hotfix);  
 
+xlua.hotfix(CS.Examples.Hotfix, "Show", function(self)  
+    print("lua---Show");
+end)
 
 
 --[[
 xlua.hotfix(CS.Examples.Hotfix, "Show", function(self)  
     print("lua---Show");
 end)
-]]
+
 
 local util = require "xlua.util";
 util.hotfix_ex(CS.Examples.Hotfix, "Show", function(self)
@@ -24,3 +26,4 @@ util.hotfix_ex(CS.Examples.Hotfix, "Show", function(self)
 	cast(fu, typeof(CS.Examples.Zi));
 	print("zilei----"..fu.x);
 end)
+]]
